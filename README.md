@@ -10,8 +10,8 @@
 
 ## requirements
 - desktop Matlab 2018a or later
-- or the only contents of the folder [matlab root]/extern <br>
-Only one of the above two is required, where the <matlab root> path is the result of executing `matlabroot` from the matlab command window.
+- or the only contents of the folder MATLAB_ROOT/extern <br>
+Only one of the above two is required, where the MATLAB_ROOT path is the result of executing `matlabroot` from the matlab command window.
 
 ## how to compile
 ```cmake
