@@ -1,3 +1,5 @@
+[![View MexCmake on File Exchange](https://www.mathworks.com/matlabcentral/images/matlab-file-exchange.svg)](https://ww2.mathworks.cn/matlabcentral/fileexchange/100651-mexcmake)
+
 # 基于CMake交叉编译C++得到适用与Matlab的Mex加速库文件
 提供基于CMake的方式编译C++代码，代替mex函数打包，配置简单，通用，可修改，不依赖于特定的编译器，平台，工具IDE等，本示例展示了使用一个`readBinFile.cpp`文件如何通过交叉编译为对应平台的mex文件（即不同平台对应的库文件）。
 
