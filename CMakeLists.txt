@@ -1,13 +1,17 @@
 cmake_minimum_required(VERSION 3.18)
-set(CMAKE_C_COMPILER "D:/mingw64_v8/bin/x86_64-w64-mingw32-gcc.exe")
-set(CMAKE_CXX_COMPILER "D:/mingw64_v8/bin/x86_64-w64-mingw32-g++.exe")
+set(CMAKE_C_COMPILER "D:/mingw64_v8/bin/x86_64-w64-mingw32-gcc.exe") # "/usr/bin/gcc"
+set(CMAKE_CXX_COMPILER "D:/mingw64_v8/bin/x86_64-w64-mingw32-g++.exe")# "/usr/bin/g++"
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC") # https://blog.csdn.net/angelazhao620/article/details/123711331
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+
 project(gccMex DESCRIPTION "基于CMake交叉编译C/C++得到适用与Matlab的Mex加速库文件"
     VERSION 1.0
     HOMEPAGE_URL "https://github.com/cuixing158")
 message(STATUS "Use CMAKE version:${CMAKE_VERSION}")
 find_package(Matlab REQUIRED) # https://cmake.org/cmake/help/latest/module/FindMatlab.html
 
-if(MATLAB_FOUND)
+if(Matlab_FOUND)
     message(STATUS "MATLAB Found, MATLAB MEX will be compiled.")
     set(MATLAB_INSTALL_ROOT ${Matlab_ROOT_DIR})
     message(STATUS ${MATLAB_INSTALL_ROOT})
@@ -20,17 +24,17 @@ if(WIN32)
 
     if("${CMAKE_CXX_COMPILER_ID}" STREQUAL "MSVC")
         message(STATUS "using MSVC complier.")
-        file(GLOB mexLibs ${MATLAB_INSTALL_ROOT}/extern/lib/win64/microsoft/*.lib)
+        file(GLOB mexLibs ${MATLAB_INSTALL_ROOT}/extern/lib/win64/microsoft/*.lib) # or use ${Matlab_MEX_LIBRARY}
     else("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
         message(STATUS "using gcc complier.")
         file(GLOB mexLibs ${MATLAB_INSTALL_ROOT}/extern/lib/win64/mingw64/*.lib)
     endif()
 elseif(UNIX)
     message(STATUS "Now is UNIX-like OS's.")
-    file(GLOB mexLibs ${MATLAB_INSTALL_ROOT}/extern/lib/linux64/gcc/*.a)
+    file(GLOB mexLibs ${Matlab_MEX_LIBRARY})
 elseif(APPLE)
     message(STATUS "Now is Apple systens.")
-    file(GLOB mexLibs ${MATLAB_INSTALL_ROOT}/extern/lib/maci64/clang/*.a)
+    file(GLOB mexLibs ${Matlab_MEX_LIBRARY})
 else()
     message(FATAL_ERROR "Now this platform is not support.")
 endif()
